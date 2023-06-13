@@ -3,6 +3,7 @@
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PersonalController;
+use App\Http\Controllers\OrderController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,8 @@ Route::get('/news/{category_code}/{id}/edit', [NewsController::class, 'edit'])->
 Route::get('/personal', [PersonalController::class, 'index'])->name('personal');
 
 Route::post('/personal', [PersonalController::class, 'auth'])->name('personal.auth');
+
+
+// Страница с формой заказа
+Route::get('/order', [OrderController::class, 'index'])->name('order');
+Route::post('/order', [OrderController::class, 'store'])->name('order.store');

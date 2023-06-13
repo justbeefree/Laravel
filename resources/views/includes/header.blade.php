@@ -10,19 +10,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{route('main')}}">
+                    <a class="nav-link @if (request()->routeIs('main')) active @endif" aria-current="page" href="{{route('main')}}">
                         {{__('Главная')}}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{route('news')}}">
+                    <a class="nav-link @if (request()->routeIs('news*')) active @endif" aria-current="page" href="{{route('news')}}">
                         {{__('Новости')}}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (request()->routeIs('order*')) active @endif" aria-current="page" href="{{route('order')}}">
+                        {{__('Заказ на выгрузку')}}
                     </a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{route('personal')}}">
+                    <a class="nav-link @if (request()->routeIs('personal*')) active @endif" aria-current="page" href="{{route('personal')}}">
                         {{__('Вход')}}
                     </a>
                 </li>
