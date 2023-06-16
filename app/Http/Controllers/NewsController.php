@@ -204,13 +204,24 @@ class NewsController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->only(['name', 'previewText', 'detailText']);
+        $data = $request->only(['name', 'previewText', 'detailText', 'status', 'image']);
 
-        return "<div style='text-align: center'>Новость создана успешно! <br>
- <p>Название: " . $data['name'] . " </p>
- <p>Текст анонса: " . $data['previewText'] . "</p>
- <p>Детальный текст: " . $data['detailText'] . "</p>
- <a href='" . route("news.create") . "'> Назад</a></div>";
+        $request->validate(
+            [
+                'name' => ['required', 'string'],
+                'previewText' => ['required', 'string'],
+                'detailText' => ['required', 'string'],
+            ]
+        );
+
+        $name = $request->input('name');
+        $previewText = $request->input('previewText');
+        $detailText = $request->input('detailText');
+        $status = $request->input('status');
+
+        session(['alert' => __("Новость успешно добавлена")]);
+
+        return redirect(route("news.create"));
     }
 
     public function show($category_code, $id)

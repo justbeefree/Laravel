@@ -13,15 +13,10 @@ class PersonalController extends Controller
 
     public function auth(Request $request)
     {
-        $data = $request->only(['login', 'password', 'remember']);
+        $login = $request->input('login');
+        $password = $request->input('password');
+        $remember = $request->boolean('remember');
 
-        if (!$request->has('remember')) {
-            $data['remember'] = false;
-        }
-            return "<div style='text-align: center'>Вы успешно авторизовались! <br>
- <p>Login: " . $data['login'] . " </p>
- <p>Пароль: " . $data['password'] . "</p>
- <p>Помнить меня: " . ($data['remember']?"Да":"Нет") . "</p>
- <a href='" . route("personal") . "'> Назад</a></div>";
+        return response()->json(compact("login", "password", "remember"));
     }
 }
