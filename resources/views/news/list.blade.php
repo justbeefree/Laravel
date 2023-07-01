@@ -34,7 +34,6 @@
             </div>
             <div class="d-flex justify-content-between">
                 <a href="{{route('news')}}" class="btn btn-primary my-2">{{__('Назад')}}</a>
-                <a href="{{route('news.create')}}" class="btn btn-primary my-2 ms-5">{{__('Добавить новость')}}</a>
             </div>
         </div>
     </section>

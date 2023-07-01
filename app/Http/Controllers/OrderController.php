@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -11,7 +12,7 @@ class OrderController extends Controller
         return view('order.index');
     }
 
-    public function store(Request $request)
+    public function store(Order $order, Request $request)
     {
         $request->validate(
             [
@@ -22,10 +23,11 @@ class OrderController extends Controller
             ]
         );
 
-        $name = $request->input('name');
-        $phone = $request->input('phone');
-        $email = $request->input('email');
-        $textInfo = $request->input('textInfo');
+        $order->name = $request->input('name');
+        $order->phone = $request->input('phone');
+        $order->email = $request->input('email');
+        $order->text = $request->input('textInfo');
+        $order->save();
 
         session(['alert' => __("Заказ отправлен")]);
 

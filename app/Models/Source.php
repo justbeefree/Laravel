@@ -6,21 +6,22 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Category;
+use App\Models\News;
 
-class Category extends Model
+class Source extends Model
 {
     use HasFactory;
 
-    protected $table = 'categories';
+    protected $table = 'sources';
 
     public function news(): HasMany
     {
         return $this->hasMany(News::class);
     }
 
-    public function scopeActive(Builder $query): void
+    public function category(): HasMany
     {
-        $query->where('active', true);
+        return $this->hasMany(Category::class);
     }
-
 }
