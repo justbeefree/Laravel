@@ -77,9 +77,9 @@ class SourceController extends Controller
             $source->news()->update(['source_id' => 1030]);
             $source->category()->update(['source_id' => 1030]);
             $source->delete();
-            session(['alert' => __("Категория " . $source->id . " успешно удалена")]);
+            session(['alert' => __("Источник " . $source->id . " успешно удален")]);
         } else {
-            session(['alert' => __("Категорию " . $source->id . " удалить нельзя!"), 'status' => "danger"]);
+            session(['alert' => __("Источник " . $source->id . " удалить нельзя!"), 'status' => "danger"]);
         }
     }
 }
