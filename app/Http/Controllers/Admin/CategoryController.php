@@ -7,6 +7,8 @@ use App\Queries\CategoriesQueryBuilder;
 use App\Queries\SourcesQueryBuilder;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\Category\Store;
+use App\Http\Requests\Category\Update;
 
 class CategoryController extends Controller
 {
@@ -23,17 +25,8 @@ class CategoryController extends Controller
         return view('admin.category.create', compact('source'));
     }
 
-    public function store(Category $category, Request $request)
+    public function store(Category $category, Store $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string'],
-                'description' => ['required', 'string'],
-                'code' => ['required', 'string'],
-                'source' => ['required', 'integer']
-            ]
-        );
-
         $category->name = $request->input('name');
         $category->description = $request->input('description');
         $category->active = $request->boolean('status');
@@ -52,17 +45,8 @@ class CategoryController extends Controller
         return view('admin.category.edit', compact('category', 'source'));
     }
 
-    public function update(Category $category, Request $request)
+    public function update(Category $category, Update $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string'],
-                'description' => ['required', 'string'],
-                'code' => ['required', 'string'],
-                'source' => ['required', 'integer']
-            ]
-        );
-
         $category->name = $request->input('name');
         $category->description = $request->input('description');
         $category->active = $request->boolean('status');
