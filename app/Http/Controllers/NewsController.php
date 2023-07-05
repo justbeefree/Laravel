@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Queries\CategoriesQueryBuilder;
+use App\Queries\NewsQueryBuilder;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\News;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(CategoriesQueryBuilder $categoriesQueryBuilder)
     {
-        $modelCategory = app(Category::class);
+        $obCategory = $categoriesQueryBuilder->getCategories();
 
         $arCategory = [];
-        foreach ($modelCategory->getCategories() as $category) {
+        foreach ($obCategory as $category) {
             $arCategory[$category->code] = [
                 'id' => $category->id,
                 'name' => $category->name,
@@ -25,15 +27,11 @@ class NewsController extends Controller
     }
 
 
-    public function list($category_code)
+    public function list($category_code, CategoriesQueryBuilder $categoriesQueryBuilder, NewsQueryBuilder $newsQueryBuilder)
     {
-
-        $modelNews = app(News::class);
-        $modelCategory = app(Category::class);
-
-        $category = $modelCategory->getCategoryByCode($category_code);
+        $category = $categoriesQueryBuilder->getCategoryByCode($category_code);
         $arNews = [];
-        foreach ($modelNews->getNewsByCategoryCode($category->id) as $news) {
+        foreach ($newsQueryBuilder->getNewsByCategoryCode($category->id) as $news) {
             $arNews[] = [
                 'id' => $news->id,
                 'name' => $news->name,
@@ -55,42 +53,11 @@ class NewsController extends Controller
         }
     }
 
-    public function create()
-    {
-        return view("news.create");
-    }
-
-    public function store(Request $request)
-    {
-        $data = $request->only(['name', 'previewText', 'detailText', 'status', 'image']);
-
-        $request->validate(
-            [
-                'name' => ['required', 'string'],
-                'previewText' => ['required', 'string'],
-                'detailText' => ['required', 'string'],
-            ]
-        );
-
-        $name = $request->input('name');
-        $previewText = $request->input('previewText');
-        $detailText = $request->input('detailText');
-        $status = $request->input('status');
-
-        session(['alert' => __("Новость успешно добавлена")]);
-
-        return redirect(route("news.create"));
-    }
-
-    public function show($category_code, $id)
+    public function show($category_code, $id, CategoriesQueryBuilder $categoriesQueryBuilder, NewsQueryBuilder $newsQueryBuilder)
     {
 
-        $modelCategory = app(Category::class);
-
-        $category = $modelCategory->getCategoryByCode($category_code);
-
-        $modelNews = app(News::class);
-        $news = $modelNews->getNewsByCategoryCodeAndNewsId($category->id, $id);
+        $category = $categoriesQueryBuilder->getCategoryByCode($category_code);
+        $news = $newsQueryBuilder->getNewsByCategoryCodeAndNewsId($category->id, $id);
         if ($news) {
             $arNews = [
                 'id' => $news->id,
@@ -108,9 +75,5 @@ class NewsController extends Controller
         }
     }
 
-    public function edit()
-    {
-        return "Страница редактирования новости";
-    }
 
 }

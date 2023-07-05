@@ -24,6 +24,11 @@
                         {{__('Заказ на выгрузку')}}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (request()->routeIs('feedback*')) active @endif" aria-current="page" href="{{route('feedback')}}">
+                        {{__('Feedback')}}
+                    </a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item">
