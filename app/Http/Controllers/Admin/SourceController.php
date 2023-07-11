@@ -9,6 +9,8 @@ use App\Queries\CategoriesQueryBuilder;
 use App\Queries\NewsQueryBuilder;
 use App\Queries\SourcesQueryBuilder;
 use Illuminate\Http\Request;
+use App\Http\Requests\Source\Store;
+use App\Http\Requests\Source\Update;
 
 class SourceController extends Controller
 {
@@ -24,14 +26,8 @@ class SourceController extends Controller
         return view('admin.source.create');
     }
 
-    public function store(Source $source, Request $request)
+    public function store(Source $source, Store $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string'],
-                'link' => ['required', 'string'],
-            ]
-        );
 
         $source->name = $request->input('name');
         $source->link = $request->input('link');
@@ -47,14 +43,8 @@ class SourceController extends Controller
         return view('admin.source.edit', compact('source'));
     }
 
-    public function update(Source $source, Request $request)
+    public function update(Source $source, Update $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string'],
-                'link' => ['required', 'string'],
-            ]
-        );
 
         $source->name = $request->input('name');
         $source->link = $request->input('link');

@@ -9,6 +9,8 @@ use App\Queries\CategoriesQueryBuilder;
 use App\Queries\NewsQueryBuilder;
 use App\Queries\SourcesQueryBuilder;
 use Illuminate\Http\Request;
+use App\Http\Requests\News\Store;
+use App\Http\Requests\News\Update;
 
 class NewsController extends Controller
 {
@@ -28,18 +30,8 @@ class NewsController extends Controller
         return view('admin.news.create', compact('source', 'category'));
     }
 
-    public function store(News $news, Request $request)
+    public function store(News $news, Store $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string'],
-                'previewText' => ['required', 'string'],
-                'detailText' => ['required', 'string'],
-                'category' => ['required', 'integer'],
-                'source' => ['required', 'integer']
-            ]
-        );
-
         $news->name = $request->input('name');
         $news->preview_text = $request->input('previewText');
         $news->detail_text = $request->input('detailText');
@@ -61,18 +53,8 @@ class NewsController extends Controller
         return view('admin.news.edit', compact('news', 'source', 'category'));
     }
 
-    public function update(News $news, Request $request)
+    public function update(News $news, Update $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string'],
-                'previewText' => ['required', 'string'],
-                'detailText' => ['required', 'string'],
-                'category' => ['required', 'integer'],
-                'source' => ['required', 'integer']
-            ]
-        );
-
         $news->name = $request->input('name');
         $news->preview_text = $request->input('previewText');
         $news->detail_text = $request->input('detailText');

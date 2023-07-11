@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Queries\OrdersQueryBuilder;
+use App\Http\Requests\Order\Store;
+use App\Http\Requests\Order\Update;
 
 class OrderController extends Controller
 {
@@ -21,17 +23,8 @@ class OrderController extends Controller
         return view('admin.order.create');
     }
 
-    public function store(Order $order, Request $request)
+    public function store(Order $order, Store $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string', 'max:30'],
-                'phone' => ['required', 'string'],
-                'email' => ['required', 'string', 'email'],
-                'textInfo' => ['required', 'string', 'max:250'],
-            ]
-        );
-
         $order->name = $request->input('name');
         $order->phone = $request->input('phone');
         $order->email = $request->input('email');
@@ -48,16 +41,8 @@ class OrderController extends Controller
         return view('admin.order.edit', compact('order'));
     }
 
-    public function update(Order $order, Request $request)
+    public function update(Order $order, Update $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string', 'max:30'],
-                'phone' => ['required', 'string'],
-                'email' => ['required', 'string', 'email'],
-                'textInfo' => ['required', 'string', 'max:250'],
-            ]
-        );
 
         $order->name = $request->input('name');
         $order->phone = $request->input('phone');

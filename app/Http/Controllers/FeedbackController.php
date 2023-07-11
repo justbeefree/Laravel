@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Feedback;
 use Illuminate\Http\Request;
+use App\Http\Requests\Feedback\Store;
 
 class FeedbackController extends Controller
 {
@@ -12,15 +13,8 @@ class FeedbackController extends Controller
         return view('feedback.index');
     }
 
-    public function store(Feedback $feedback, Request $request)
+    public function store(Feedback $feedback, Store $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string', 'max:30'],
-                'email' => ['required', 'string', 'email'],
-                'textInfo' => ['required', 'string', 'max:250'],
-            ]
-        );
 
         $feedback->name = $request->input('name');
         $feedback->email = $request->input('email');

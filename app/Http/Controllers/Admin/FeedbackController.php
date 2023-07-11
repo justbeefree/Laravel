@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Feedback;
 use App\Queries\FeedbacksQueryBuilder;
 use Illuminate\Http\Request;
+use App\Http\Requests\Feedback\Store;
+use App\Http\Requests\Feedback\Update;
 
 class FeedbackController extends Controller
 {
@@ -20,16 +22,8 @@ class FeedbackController extends Controller
         return view('admin.feedback.create');
     }
 
-    public function store(Feedback $feedback, Request $request)
+    public function store(Feedback $feedback, Store $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string', 'max:30'],
-                'email' => ['required', 'string', 'email'],
-                'textInfo' => ['required', 'string', 'max:250'],
-            ]
-        );
-
         $feedback->name = $request->input('name');
         $feedback->email = $request->input('email');
         $feedback->text = $request->input('textInfo');
@@ -45,16 +39,8 @@ class FeedbackController extends Controller
         return view('admin.feedback.edit', compact('feedback'));
     }
 
-    public function update(Feedback $feedback, Request $request)
+    public function update(Feedback $feedback, Update $request)
     {
-        $request->validate(
-            [
-                'name' => ['required', 'string', 'max:30'],
-                'email' => ['required', 'string', 'email'],
-                'textInfo' => ['required', 'string', 'max:250'],
-            ]
-        );
-
         $feedback->name = $request->input('name');
         $feedback->email = $request->input('email');
         $feedback->text = $request->input('textInfo');
