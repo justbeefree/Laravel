@@ -12,6 +12,7 @@ use \App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use \App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use \App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 use \App\Http\Controllers\Admin\SourceController;
+use \App\Http\Controllers\Admin\UserController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +39,6 @@ Route::get('/news/{category_code}/{id}', [NewsController::class, 'show'])->name(
 
 //страница авторизации
 Route::get('/personal', [PersonalController::class, 'index'])->name('personal');
-Route::post('/personal', [PersonalController::class, 'auth'])->name('personal.auth');
 
 // Страница с формой заказа
 Route::get('/order', [OrderController::class, 'index'])->name('order');
@@ -49,7 +49,7 @@ Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 //админка
-Route::prefix('admin')->group(function () {
+Route::middleware( ['auth', 'is_admin'])->prefix('admin')->group(function () {
 
 
     Route::get('/',[IndexController::class, 'index'])->name('admin.index');
@@ -95,5 +95,16 @@ Route::prefix('admin')->group(function () {
     Route::get('/feedback/{feedback}/edit',[AdminFeedbackController::class, 'edit'])->name('admin.feedback.edit');
     Route::put('/feedback/{feedback}',[AdminFeedbackController::class, 'update'])->name('admin.feedback.update');
     Route::delete('/feedback/{feedback}',[AdminFeedbackController::class, 'destroy'])->name('admin.feedback.destroy');
+
+
+    //Юзеры
+    Route::get('/user',[UserController::class, 'index'])->name('admin.user.index');
+    Route::post('/user',[UserController::class, 'store'])->name('admin.user.store');
+    Route::get('/user/create',[UserController::class, 'create'])->name('admin.user.create');
+    Route::get('/user/{user}/edit',[UserController::class, 'edit'])->name('admin.user.edit');
+    Route::put('/user/{user}',[UserController::class, 'update'])->name('admin.user.update');
+    Route::delete('/user/{user}',[UserController::class, 'destroy'])->name('admin.user.destroy');
 });
 
+
+Auth::routes();

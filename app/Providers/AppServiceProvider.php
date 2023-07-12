@@ -9,6 +9,7 @@ use App\Queries\FeedbacksQueryBuilder;
 use App\Queries\NewsQueryBuilder;
 use App\Queries\OrdersQueryBuilder;
 use App\Queries\SourcesQueryBuilder;
+use App\Queries\UsersQueryBuilder;
 use Illuminate\Support\ServiceProvider;
 use App\Queries\QueryBuilder;
 
@@ -24,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(QueryBuilder::class, SourcesQueryBuilder::class);
         $this->app->bind(QueryBuilder::class, OrdersQueryBuilder::class);
         $this->app->bind(QueryBuilder::class, FeedbacksQueryBuilder::class);
+        $this->app->bind(QueryBuilder::class, UsersQueryBuilder::class);
     }
 
     /**

@@ -35,5 +35,10 @@
                 {{__('FeedBack')}}
             </a>
         </li>
+        <li>
+            <a href="{{route('admin.user.index')}}" class="nav-link text-white @if (request()->routeIs('admin.user*')) active @endif">
+                {{__('Пользователи')}}
+            </a>
+        </li>
     </ul>
 </div>

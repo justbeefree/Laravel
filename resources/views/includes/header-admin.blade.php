@@ -14,8 +14,12 @@
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-md-0 pe-3">
                 <li class="nav-item">
-                    <a class="nav-link text-white" aria-current="page" href="#">
-                        {{__('Sign out')}}
+                    <a class="nav-link text-white" aria-current="page" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{__('Logout')}}
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </a>
                 </li>
             </ul>
