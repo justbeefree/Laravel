@@ -18,6 +18,10 @@
 
                         <h3>Привет, {{ Auth::user()->name}}</h3>
                         <br>
+                            @if (Auth::user()->avatar)
+                                <img src="{{Auth::user()->avatar}}" style="width: 150px;">
+                            @endif
+                        <br>
                             @if(Auth::user()->is_admin)
                                 <p>
                                     <a href="{{route('admin.index')}}" style="color:red; text-decoration: none;">В админку</a>

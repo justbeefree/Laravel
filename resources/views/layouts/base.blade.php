@@ -18,6 +18,19 @@
             color: #ff0000;
             margin-left: 3px;
         }
+        .link {
+            display:inline-block;
+        }
+
+        .social {
+            text-align: center;
+        }
+
+        .link a {
+            display:block;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
     </style>
 </head>
 <body>

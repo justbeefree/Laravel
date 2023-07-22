@@ -13,6 +13,10 @@ use \App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use \App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 use \App\Http\Controllers\Admin\SourceController;
 use \App\Http\Controllers\Admin\UserController;
+use \App\Http\Controllers\Admin\ParserController;
+
+
+use \App\Http\Controllers\SocialProviderController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -104,6 +108,20 @@ Route::middleware( ['auth', 'is_admin'])->prefix('admin')->group(function () {
     Route::get('/user/{user}/edit',[UserController::class, 'edit'])->name('admin.user.edit');
     Route::put('/user/{user}',[UserController::class, 'update'])->name('admin.user.update');
     Route::delete('/user/{user}',[UserController::class, 'destroy'])->name('admin.user.destroy');
+
+    //Parser
+    Route::get('/parser',[ParserController::class, 'index'])->name('admin.parser.index');
+});
+
+Route::middleware( ['guest'])->group(function () {
+
+    Route::get('/{driver}/redirect', [SocialProviderController::class, 'redirect'])
+        ->where('driver', '\w+')
+        ->name('social-provider.redirect');
+
+    Route::get('/{driver}/callback', [SocialProviderController::class, 'callback'])
+        ->where('driver', '\w+')
+        ->name('social-provider.callback');
 });
 
 
