@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class PersonalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         return view('personal.index');
