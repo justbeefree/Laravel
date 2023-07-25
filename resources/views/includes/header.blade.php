@@ -39,9 +39,9 @@
                     @endif
 
                     @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link @if (request()->routeIs('register*')) active @endif" href="{{ route('register') }}" aria-current="page">{{ __('Register') }}</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link @if (request()->routeIs('register*')) active @endif" href="{{ route('register') }}" aria-current="page">{{ __('Register') }}</a>
+                            </li>
                     @endif
                 @else
                     <li class="nav-item dropdown">

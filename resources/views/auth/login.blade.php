@@ -6,7 +6,18 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
-
+                <div class="social">
+                    <div class="link">
+                        <a class="nav-link @if (request()->routeIs('vkontakte*')) active @endif" href="{{ route('social-provider.redirect', ['driver' => 'vkontakte']) }}">
+                            <img src="/img/vk_logo.png" style="width: 32px;">
+                        </a>
+                    </div>
+                    <div class="link">
+                        <a class="nav-link @if (request()->routeIs('github*')) active @endif" href="{{ route('social-provider.redirect', ['driver' => 'github']) }}">
+                            <img src="/img/github.png" style="width: 32px;">
+                        </a>
+                    </div>
+                </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
