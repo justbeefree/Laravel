@@ -13,7 +13,7 @@
                     @foreach($news as $code => $item)
                         <div class="col">
                             <div class="card shadow-sm">
-                                <img src="{{$item['images']}}" width="100%" height="225">
+                                <img src="{{Storage::disk('public')->url($item['images'])}}" width="100%" height="225">
                                 <div class="card-body">
                                     <h5 class="card-title">
                                         {{$item['name']}}

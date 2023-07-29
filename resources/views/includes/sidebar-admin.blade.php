@@ -40,5 +40,10 @@
                 {{__('Пользователи')}}
             </a>
         </li>
+        <li>
+            <a href="{{route('admin.resource.index')}}" class="nav-link text-white @if (request()->routeIs('admin.resource*')) active @endif">
+                {{__('Ресурсы')}}
+            </a>
+        </li>
     </ul>
 </div>

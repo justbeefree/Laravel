@@ -62,3 +62,13 @@
         </div>
     </section>
 @endsection
+
+@push('js')
+    <script type="text/javascript">
+        ClassicEditor
+            .create( document.querySelector( '#description' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endpush
