@@ -14,6 +14,7 @@ use \App\Http\Controllers\Admin\FeedbackController as AdminFeedbackController;
 use \App\Http\Controllers\Admin\SourceController;
 use \App\Http\Controllers\Admin\UserController;
 use \App\Http\Controllers\Admin\ParserController;
+use \App\Http\Controllers\Admin\ResourcesController;
 
 
 use \App\Http\Controllers\SocialProviderController;
@@ -110,7 +111,16 @@ Route::middleware( ['auth', 'is_admin'])->prefix('admin')->group(function () {
     Route::delete('/user/{user}',[UserController::class, 'destroy'])->name('admin.user.destroy');
 
     //Parser
-    Route::get('/parser',[ParserController::class, 'index'])->name('admin.parser.index');
+    Route::get('/parser/{resource}',[ParserController::class, 'index'])->name('admin.parser');
+
+
+    //Источники
+    Route::get('/resource',[ResourcesController::class, 'index'])->name('admin.resource.index');
+    Route::post('/resource',[ResourcesController::class, 'store'])->name('admin.resource.store');
+    Route::get('/resource/create',[ResourcesController::class, 'create'])->name('admin.resource.create');
+    Route::get('/resource/{resource}/edit',[ResourcesController::class, 'edit'])->name('admin.resource.edit');
+    Route::put('/resource/{resource}',[ResourcesController::class, 'update'])->name('admin.resource.update');
+    Route::delete('/resource/{resource}',[ResourcesController::class, 'destroy'])->name('admin.resource.destroy');
 });
 
 Route::middleware( ['guest'])->group(function () {

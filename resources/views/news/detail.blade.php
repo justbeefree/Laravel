@@ -7,9 +7,9 @@
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">{{$news['name']}}</h1>
-                <img src="{{$news['images']}}">
+                <img src="{{Storage::disk('public')->url($news['images'])}}">
                 <p class="lead text-body-secondary">
-                    {{$news['detailText']}}
+                    {!!$news['detailText']!!}
                 </p>
                 <p>
                     <a href="{{route('news.list', $news['category'])}}" class="btn btn-primary my-2">{{__('Назад')}}</a>

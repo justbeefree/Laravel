@@ -8,6 +8,7 @@ use App\Models\News;
 use App\Queries\CategoriesQueryBuilder;
 use App\Queries\NewsQueryBuilder;
 use App\Queries\SourcesQueryBuilder;
+use App\Services\UploadService;
 use Illuminate\Http\Request;
 use App\Http\Requests\News\Store;
 use App\Http\Requests\News\Update;
@@ -55,10 +56,16 @@ class NewsController extends Controller
 
     public function update(News $news, Update $request)
     {
+
+        if($request->hasFile('images')){
+            $service = app(UploadService::class);
+
+            $news->images = $service->uploadFile($request->file('images'));
+        }
+
         $news->name = $request->input('name');
         $news->preview_text = $request->input('previewText');
         $news->detail_text = $request->input('detailText');
-        $news->images = $request->input('images');
         $news->active = $request->boolean('status');
         $news->category_id = $request->input('category');
         $news->source_id = $request->input('source');

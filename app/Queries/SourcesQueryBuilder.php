@@ -32,4 +32,9 @@ class SourcesQueryBuilder
     {
         return $this->getModel()->where('id', '=', $id)->first();
     }
+
+    public function getSourceByName(string $name): mixed
+    {
+        return $this->getModel()->where('name', '=', $name)->first();
+    }
 }

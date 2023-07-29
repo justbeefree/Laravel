@@ -21,7 +21,7 @@
                             <x-alert type="success" :message="$alert"></x-alert>
                         @endif
                         <div class="card-body">
-                            <form action="{{route('admin.news.update', $news)}}" method="post">
+                            <form action="{{route('admin.news.update', $news)}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="mb-3">
@@ -40,9 +40,8 @@
                                               rows="3">{{old("detailText")?:$news->detail_text}}</textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="inputImages" class="form-label">{{__('Картинка')}}</label>
-                                    <input type="text" class="form-control" id="inputImages" name="images"
-                                           aria-describedby="{{__('Картинка')}}" value="{{old("images")?:$news->images}}">
+                                    <label for="formFile" class="form-label">{{__('Картинка')}}</label>
+                                    <input class="form-control" type="file" id="formFile" name="images">
                                 </div>
                                 <div class="form-check mb-3">
                                     <input class="form-check-input" type="checkbox" value="1" id="flexCheckDefault" name="status" @if(old('status') || $news->active)  checked @endif>
@@ -75,3 +74,18 @@
         </div>
     </section>
 @endsection
+
+@push('js')
+    <script>
+        var $option = {
+            height: 100,
+            filebrowserImageBrowseUrl: route_prefix + '?type=Images',
+            filebrowserImageUploadUrl: route_prefix + '/upload?type=Images&_token={{csrf_token()}}',
+            filebrowserBrowseUrl: route_prefix + '?type=Files',
+            filebrowserUploadUrl: route_prefix + '/upload?type=Files&_token={{csrf_token()}}'
+        };
+
+        $('#detailText').ckeditor($option);
+        $('#previewText').ckeditor();
+    </script>
+@endpush
